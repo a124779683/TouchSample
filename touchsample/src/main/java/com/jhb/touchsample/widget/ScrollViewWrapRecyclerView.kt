@@ -14,7 +14,11 @@ import androidx.core.widget.NestedScrollView
  * @date 2020/6/10
  * All rights reserved.
  */
-class ScrollViewWrapRecyclerView @JvmOverloads constructor(ctx: Context, attr: AttributeSet? = null, defStyleAttr: Int = 0) : NestedScrollView(ctx,attr,defStyleAttr) {
+class ScrollViewWrapRecyclerView @JvmOverloads constructor(
+    ctx: Context,
+    attr: AttributeSet? = null,
+    defStyleAttr: Int = 0
+) : NestedScrollView(ctx, attr, defStyleAttr) {
 
     var headerContent: View? = null
     var canScrollChild: View? = null
@@ -33,6 +37,19 @@ class ScrollViewWrapRecyclerView @JvmOverloads constructor(ctx: Context, attr: A
             }
         }
         super.onNestedPreScroll(target, dx, dy, consumed, type)
+    }
+
+    override fun dispatchNestedPreScroll(
+        dx: Int,
+        dy: Int,
+        consumed: IntArray?,
+        offsetInWindow: IntArray?,
+        type: Int
+    ): Boolean {
+        return if (currentScrollY == 0)//判断是否到达顶部，如果到达了才通过nestedScrolling机制和外部进行交互，保证事件的传递消费不超过2个以上控件。否则不好控制
+            super.dispatchNestedPreScroll(dx, dy, consumed, offsetInWindow, type)
+        else
+            false
     }
 
     //当前ScrollView滚动的位置

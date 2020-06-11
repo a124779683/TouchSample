@@ -36,6 +36,10 @@ class MainTouchActivity : AppCompatActivity() {
             val tabHeight = tablayout.measuredHeight
             viewpager.layoutParams = LinearLayout.LayoutParams(MATCH_PARENT, srHeight - tabHeight)
         }
+
+        refreshLayout.setOnRefreshListener {
+            refreshLayout.isRefreshing = false
+        }
     }
 
     inner class FragmentAdapter(fm: FragmentManager) : FragmentPagerAdapter(fm) {
