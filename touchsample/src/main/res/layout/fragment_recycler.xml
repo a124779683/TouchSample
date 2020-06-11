@@ -3,7 +3,7 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <androidx.recyclerview.widget.RecyclerView
+    <com.jhb.touchsample.widget.LoadMoreRecyclerView
         android:id="@+id/rv_framgent"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>

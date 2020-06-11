@@ -1,6 +1,7 @@
 package com.jhb.demo.fragment
 
 import android.os.Bundle
+import android.os.Handler
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -34,10 +35,10 @@ class RecyclerViewFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        initRecyclerView(view)
+        initRecyclerView()
     }
 
-    private fun initRecyclerView(view: View) {
+    private fun initRecyclerView() {
         rv_framgent.layoutManager = LinearLayoutManager(this@RecyclerViewFragment.context).apply {
             this.orientation = RecyclerView.VERTICAL
         }
@@ -46,6 +47,13 @@ class RecyclerViewFragment : Fragment() {
             arrayList.add("position".plus(i))
         }
         rv_framgent.adapter = Adapter(arrayList)
+
+        //设置加载监听
+        rv_framgent.setOnLoadingListener {
+            Handler().postDelayed({
+                rv_framgent.loadFinished()
+            }, 1000)
+        }
     }
 
     inner class Adapter(val list: List<String>) : RecyclerView.Adapter<ViewHolder>() {
