@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.jhb.touchsample.R
+import com.jhb.touchsample.fragment.NestedScrollChildView
 import kotlinx.android.synthetic.main.fragment_recycler.*
 
 /**
@@ -22,7 +23,7 @@ import kotlinx.android.synthetic.main.fragment_recycler.*
  * Copyright (c) 2020, 北京小药药人工智能
  * All rights reserved.
  */
-class RecyclerViewFragment : Fragment() {
+class RecyclerViewFragment : Fragment(), NestedScrollChildView {
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -71,4 +72,6 @@ class RecyclerViewFragment : Fragment() {
     }
 
     class ViewHolder(val view: TextView) : RecyclerView.ViewHolder(view)
+
+    override fun getNestedView() = this!!.rv_framgent
 }

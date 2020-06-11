@@ -17,11 +17,10 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/tv_content"
+            <androidx.viewpager.widget.ViewPager
+                android:id="@+id/viewpager_loop"
                 android:layout_width="match_parent"
-                android:layout_height="100dp"
-                android:text="11111" />
+                android:layout_height="100dp"/>
 
             <com.google.android.material.tabs.TabLayout
                 android:id="@+id/tablayout"
@@ -37,8 +36,7 @@
             <androidx.viewpager.widget.ViewPager
                 android:id="@+id/viewpager"
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1" />
+                android:layout_height="0dp"/>
         </LinearLayout>
 
     </com.jhb.touchsample.widget.ScrollViewWrapRecyclerView>

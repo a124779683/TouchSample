@@ -21,7 +21,7 @@ class ScrollViewWrapRecyclerView @JvmOverloads constructor(
 ) : NestedScrollView(ctx, attr, defStyleAttr) {
 
     var headerContent: View? = null
-    var canScrollChild: View? = null
+    var canScrollChild: View? = null//这里暂时用的RecyclerView，考虑使用NestedScrollChild接口
 
     override fun onNestedPreScroll(target: View, dx: Int, dy: Int, consumed: IntArray, type: Int) {
         if (dy > 0 && currentScrollY < headerContent?.measuredHeight!!) {//优先让ScrollView消费上拉操作
@@ -52,7 +52,67 @@ class ScrollViewWrapRecyclerView @JvmOverloads constructor(
             false
     }
 
+ /*   var startY: Float? = 0f
+    var startX: Float? = 0f
+    override fun dispatchTouchEvent(ev: MotionEvent?): Boolean {
+        when (ev?.action) {
+            MotionEvent.ACTION_DOWN -> {
+                startX = ev?.x
+                startY = ev?.y
+                return super.dispatchTouchEvent(ev)
+            }
+            MotionEvent.ACTION_MOVE -> {
+                if (startY != null && startX != null) {
+                    val dy = ev?.y?.minus(startY!!)
+                    val dx = ev?.x?.minus(startX!!)
+                    if (dy != null && dx != null && dy > dx) {
+                        //交由recyclerView去处理
+                        return if (canScrollChild is View) {
+                            canScrollChild!!.dispatchTouchEvent(ev)
+                        } else {
+                            super.dispatchTouchEvent(ev)
+                        }
+                    } else {
+                        return super.dispatchTouchEvent(ev)
+                    }
+                } else {
+                    return super.dispatchTouchEvent(ev)
+                }
+            }
+            MotionEvent.ACTION_UP -> {
+                return super.dispatchTouchEvent(ev)
+            }
+        }
+        return super.dispatchTouchEvent(ev)
+    }*/
+
+    /* override fun dispatchNestedPreFling(velocityX: Float, velocityY: Float): Boolean {
+         if (headerContent != null &&  canScrollChild != null) {
+             //把事件交给NestedChild类消费
+             return canScrollChild!!.dispatchNestedPreFling(velocityX, velocityY)
+         }
+         return super.dispatchNestedPreFling(velocityX, velocityY)
+     }
+
+     override fun dispatchNestedFling(
+         velocityX: Float,
+         velocityY: Float,
+         consumed: Boolean
+     ): Boolean {
+         println("dispatchNestedFling velocityY:${velocityY}   consumed:${consumed}")
+         if (headerContent != null  && canScrollChild != null) {
+             //把事件交给NestedChild类消费
+             return canScrollChild!!.dispatchNestedFling(velocityX, velocityY, consumed)
+         }
+
+         return super.dispatchNestedFling(velocityX, velocityY, consumed)
+     }
+ */
     //当前ScrollView滚动的位置
+
+    override fun fling(velocityY: Int) {
+        super.fling(velocityY)
+    }
     var currentScrollY: Int = 0
 
     override fun onScrollChanged(l: Int, t: Int, oldl: Int, oldt: Int) {
